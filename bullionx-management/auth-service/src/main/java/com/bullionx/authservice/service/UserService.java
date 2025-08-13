@@ -1,5 +1,6 @@
 package com.bullionx.authservice.service;
 
+import com.bullionx.authservice.dto.UserResponseDTO;
 import com.bullionx.authservice.model.User;
 import com.bullionx.authservice.repository.UserRepository;
 import lombok.*;
@@ -19,7 +20,7 @@ public class UserService {
 
     public List<UserResponseDTO> getUsers(){
 
-        List<User> users = userRepository.findAll();
+        List<UserResponseDTO> users = userRepository.fin
 
         return users;
 
