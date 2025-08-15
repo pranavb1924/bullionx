@@ -1,6 +1,7 @@
 package com.bullionx.authservice.service;
 
 import com.bullionx.authservice.dto.UserResponseDTO;
+import com.bullionx.authservice.mapper.UserMapper;
 import com.bullionx.authservice.model.User;
 import com.bullionx.authservice.repository.UserRepository;
 import lombok.*;
@@ -10,19 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
 public class UserService {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public List<UserResponseDTO> getUsers(){
-
-        List<UserResponseDTO> users = userRepository.fin
-
-        return users;
-
+        List<User> users = userRepository.findAll();
+        List<UserResponseDTO> userResponseDTO = users.stream().map(UserMapper :: toUserResponseDTO).toList();
+        return userResponseDTO;
     }
 }
