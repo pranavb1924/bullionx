@@ -1,5 +1,6 @@
 package com.bullionx.authservice.service;
 
+import com.bullionx.authservice.dto.UserRequestDTO;
 import com.bullionx.authservice.dto.UserResponseDTO;
 import com.bullionx.authservice.mapper.UserMapper;
 import com.bullionx.authservice.model.User;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.bullionx.authservice.mapper.UserMapper.toModel;
 
 @Service
 
@@ -26,5 +29,12 @@ public class UserService {
         List<User> users = userRepository.findAll();
         List<UserResponseDTO> userResponseDTO = users.stream().map(UserMapper :: toUserResponseDTO).toList();
         return userResponseDTO;
+    }
+
+    public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
+        User user = new User();
+        user = toModel(userRequestDTO);
+        user = userRepository.save(user);
+        return UserMapper.toUserResponseDTO(user);
     }
 }
