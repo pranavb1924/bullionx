@@ -2,6 +2,7 @@ package com.bullionx.authservice.service;
 
 import com.bullionx.authservice.dto.UserRequestDTO;
 import com.bullionx.authservice.dto.UserResponseDTO;
+import com.bullionx.authservice.exceptions.EmailAlreadyExistsException;
 import com.bullionx.authservice.mapper.UserMapper;
 import com.bullionx.authservice.model.User;
 import com.bullionx.authservice.repository.UserRepository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static com.bullionx.authservice.mapper.UserMapper.toModel;
 
@@ -34,6 +37,10 @@ public class UserService {
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
         User user = new User();
         user = toModel(userRequestDTO);
+
+        if(userRepository.existsByEmail(user.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists "+userRequestDTO.getEmail());
+        }
         user = userRepository.save(user);
         return UserMapper.toUserResponseDTO(user);
     }

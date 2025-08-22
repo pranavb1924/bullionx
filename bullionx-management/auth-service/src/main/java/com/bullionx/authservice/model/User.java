@@ -1,37 +1,38 @@
 package com.bullionx.authservice.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.boot.autoconfigure.web.WebProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
-import java.util.UUID;
-
-@Entity(name = "UserTable")
+@Entity
+@Table(name = "users")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID userId;
+    private String id;
 
-    @NotNull
-    private String firstName;
+    @Column(unique = true, nullable = false)
+    private String username;
 
-    @NotNull
-    private String lastName;
-
-    @NotNull
-    @Column(unique = true)
-    @Email
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @NotNull
+    @Column(nullable = false)
     private String password;
+
+    private String firstName;
+    private String lastName;
+
+    @Column(columnDefinition = "DECIMAL(15,2) DEFAULT 10000.00")
+    private Double initialBalance = 10000.00;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
+    private boolean enabled = true;
 }
