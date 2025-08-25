@@ -1,23 +1,22 @@
 package com.bullionx.authservice.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
+
+import java.util.UUID;
 
 @Entity
-@Table(name = "users")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "UserTable")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID Id;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -25,14 +24,55 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String firstName;
-    private String lastName;
+    public User(UUID id, String firstName, String lastName, String email, String password) {
+        Id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
-    @Column(columnDefinition = "DECIMAL(15,2) DEFAULT 10000.00")
-    private Double initialBalance = 10000.00;
+    public User() {
 
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    }
 
-    private boolean enabled = true;
+    public UUID getId() {
+        return Id;
+    }
+
+    public void setId(UUID id) {
+        Id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
