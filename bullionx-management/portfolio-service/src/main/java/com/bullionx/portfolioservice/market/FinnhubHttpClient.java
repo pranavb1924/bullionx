@@ -39,7 +39,6 @@ public class FinnhubHttpClient implements FinnhubClient {
             Map<?, ?> body = http.get()
                     .uri(baseUrl + "/quote?symbol={s}&token={t}", sym, token)
                     .retrieve()
-                    // ✅ return Mono<Throwable>, not Mono.error(...)
                     .onStatus(HttpStatusCode::isError, resp ->
                             resp.bodyToMono(String.class)
                                     .defaultIfEmpty("")
@@ -50,13 +49,12 @@ public class FinnhubHttpClient implements FinnhubClient {
 
             if (body == null) return zero(sym);
 
-            BigDecimal c  = toBigDecimal(body.get("c"));   // current
-            BigDecimal pc = toBigDecimal(body.get("pc"));  // prior close
+            BigDecimal c  = toBigDecimal(body.get("c"));
+            BigDecimal pc = toBigDecimal(body.get("pc"));
             long t        = toLong(body.get("t"));
 
             return new Quote(sym, sym, c, pc, t);
         } catch (Exception e) {
-            // Soft-fail for dev/demo to avoid crashing the UI if token is missing/expired
             return zero(sym);
         }
     }

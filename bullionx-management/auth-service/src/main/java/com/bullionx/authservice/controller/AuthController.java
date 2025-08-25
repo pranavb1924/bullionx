@@ -2,6 +2,8 @@ package com.bullionx.authservice.controller;
 
 import com.bullionx.authservice.dto.LoginRequestDTO;
 import com.bullionx.authservice.dto.LoginResponseDTO;
+import com.bullionx.authservice.dto.RegisterRequestDTO;
+import com.bullionx.authservice.dto.RegisterResponseDTO;
 import com.bullionx.authservice.model.User;
 import com.bullionx.authservice.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,6 +40,18 @@ public class AuthController {
 
 
         return ResponseEntity.ok(new LoginResponseDTO(token, user.get().getEmail(), user.get().getFirstName(), user.get().getLastName()));
+
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+        Optional<User> user = this.authService.getUser(registerRequestDTO.getEmail());
+        RegisterResponseDTO responseDTO = new RegisterResponseDTO();
+        if (user.isEmpty()){
+            responseDTO = authService.createUser(registerRequestDTO);
+        }
+
+        return ResponseEntity.ok(responseDTO);
 
     }
 }

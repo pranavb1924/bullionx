@@ -1,6 +1,8 @@
 package com.bullionx.authservice.service;
 
 import com.bullionx.authservice.dto.LoginRequestDTO;
+import com.bullionx.authservice.dto.RegisterRequestDTO;
+import com.bullionx.authservice.dto.RegisterResponseDTO;
 import com.bullionx.authservice.model.User;
 import com.bullionx.authservice.util.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,5 +32,16 @@ public class AuthService {
 
     public Optional<User> getUser(String email){
         return userService.findByEmail(email);
+    }
+
+    public RegisterResponseDTO createUser(RegisterRequestDTO registerRequestDTO) {
+        User user = new User();
+        user.setEmail(registerRequestDTO.getEmail());
+        user.setFirstName(registerRequestDTO.getFirstName());
+        user.setLastName(registerRequestDTO.getLastName());
+        user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
+        userService.createUser(user);
+
+        return new RegisterResponseDTO(user.getEmail(), "Created user");
     }
 }

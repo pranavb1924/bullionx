@@ -1,28 +1,40 @@
 package com.bullionx.authservice.util;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
+import java.time.Duration;
 import java.time.Instant;
-import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
 
-    private final Key secretKey;
+    private final SecretKey key;
 
-
-    public JwtUtil(@Value("@{jwt.secret") String secret) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+    public JwtUtil(@Value("${jwt.secret-base64:}") String secretBase64) {
+        if (secretBase64 == null || secretBase64.isBlank()) {
+            // dev fallback: strong random key (tokens invalid after restart)
+            this.key = Jwts.SIG.HS256.key().build();
+        } else {
+            this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretBase64));
+        }
     }
 
     public String generateToken(String email, String firstName, String lastName) {
-        return Jwts.builder().subject(email).issuedAt(new Date()).expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)).signWith(this.secretKey).compact();
+        Instant now = Instant.now();
+        return Jwts.builder()
+                .subject(email)
+                .claim("firstName", firstName)
+                .claim("lastName", lastName)
+                .issuedAt(Date.from(now))
+                .expiration(Date.from(now.plus(Duration.ofHours(10))))
+                .signWith(key, Jwts.SIG.HS256)
+                .compact();
     }
 }

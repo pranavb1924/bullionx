@@ -1,0 +1,82 @@
+<app-header></app-header>
+
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Portfolio Overview</h1>
+    <button class="btn-refresh" (click)="refreshData()">
+      <span class="refresh-icon">↻</span> Refresh
+    </button>
+  </div>
+
+  <div class="portfolio-cards" *ngIf="portfolio$ | async as portfolio">
+    <div class="metric-card">
+      <div class="metric-label">Total Value</div>
+      <div class="metric-value">{{ formatCurrency(portfolio.totalValue) }}</div>
+      <div class="metric-change" [class.positive]="portfolio.totalGainLoss > 0" 
+           [class.negative]="portfolio.totalGainLoss < 0">
+        {{ formatCurrency(portfolio.totalGainLoss) }} 
+        ({{ formatPercent(portfolio.totalGainLossPercent) }})
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-label">Today's Change</div>
+      <div class="metric-value" [class.positive]="portfolio.totalGainLoss > 0" 
+           [class.negative]="portfolio.totalGainLoss < 0">
+        {{ formatCurrency(portfolio.totalGainLoss) }}
+      </div>
+      <div class="metric-change">Market Hours: Open</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-label">Total Holdings</div>
+      <div class="metric-value">{{ portfolio.holdings.length }}</div>
+      <div class="metric-change">Active Positions</div>
+    </div>
+  </div>
+
+  <div class="holdings-section" *ngIf="portfolio$ | async as portfolio">
+    <div class="section-header">
+      <h2>Holdings</h2>
+    </div>
+
+    <div class="holdings-table-container">
+      <table class="holdings-table">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Value</th>
+            <th>Change</th>
+            <th>% Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let holding of portfolio.holdings">
+            <td class="stock-symbol">{{ holding.symbol }}</td>
+            <td class="stock-name">{{ holding.name }}</td>
+            <td>{{ holding.quantity }}</td>
+            <td>{{ formatCurrency(holding.price) }}</td>
+            <td>{{ formatCurrency(holding.value) }}</td>
+            <td [class.positive]="holding.change > 0" 
+                [class.negative]="holding.change < 0">
+              {{ formatCurrency(holding.change) }}
+            </td>
+            <td [class.positive]="holding.changePercent > 0" 
+                [class.negative]="holding.changePercent < 0">
+              {{ formatPercent(holding.changePercent) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <button class="btn-action btn-buy">Buy</button>
+    <button class="btn-action btn-sell">Sell</button>
+    <button class="btn-action btn-transfer">Transfer</button>
+  </div>
+</div>
