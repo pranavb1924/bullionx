@@ -1,0 +1,73 @@
+.portfolio-summary-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.portfolio-summary-card h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #f0f0f0;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summary-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.stat-value.primary {
+  font-size: 22px;
+  color: #00cc66;
+}
+
+.stat-value.positive {
+  color: #00cc66;
+}
+
+.stat-value.negative {
+  color: #ff3333;
+}
+
+.stat-value.muted {
+  color: #666;
+  font-style: italic;
+}
+
+.stat-percent {
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 4px;
+}

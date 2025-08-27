@@ -1,0 +1,36 @@
+<div class="dashboard">
+  <div class="container">
+    @if (loading()) {
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading dashboard...</p>
+      </div>
+    }
+    
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
+    
+    @if (!loading()) {
+      <div class="dashboard-grid">
+        <bx-greeting></bx-greeting>
+        <bx-trade-card
+          [portfolioId]="portfolioId()"
+          [portfolioBalance]="cashBalance()"
+          [selectedSymbol]="selectedSymbol()"
+          (traded)="onTraded()">
+        </bx-trade-card>
+      </div>
+      
+      <bx-portfolio-summary
+        [holdings]="holdings()"
+        [cashBalance]="cashBalance()">
+      </bx-portfolio-summary>
+      
+      <bx-holdings 
+        [data]="holdings()"
+        (holdingSelected)="onHoldingSelected($event)">
+      </bx-holdings>
+    }
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<section class="holdings-card">
+  <h3>Your Portfolio</h3>
+  
+  @if (data && data.holdings && data.holdings.length > 0) {
+    <div class="portfolio-summary">
+      <div class="summary-item">
+        <span class="summary-label">Total Value</span>
+        <span class="summary-value">
+          {{ data.totals.totalValue | currency:'USD':'symbol':'1.2-2' }}
+        </span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Total P/L</span>
+        <span class="summary-value" 
+              [class.positive]="data.totals.totalNetPLAmount > 0"
+              [class.negative]="data.totals.totalNetPLAmount < 0">
+          {{ data.totals.totalNetPLAmount | currency:'USD':'symbol':'1.2-2' }}
+          ({{ data.totals.totalNetPLPercent | number:'1.2-2' }}%)
+        </span>
+      </div>
+    </div>
+    
+    <div class="table-container">
+      <table class="holdings-table">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th class="text-right">Shares</th>
+            <th class="text-right">Avg Cost</th>
+            <th class="text-right">Current</th>
+            <th class="text-right">Value</th>
+            <th class="text-right">Day Change</th>
+            <th class="text-right">Total P/L</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (holding of data.holdings; track holding.symbol) {
+            <tr class="clickable-row" 
+                (click)="onRowClick(holding.symbol)"
+                title="Click to trade {{ holding.symbol }}">
+              <td class="symbol-cell">{{ holding.symbol }}</td>
+              <td class="text-right">{{ holding.quantity | number:'1.0-0' }}</td>
+              <td class="text-right">
+                {{ holding.averageCost | currency:'USD':'symbol':'1.2-2' }}
+              </td>
+              <td class="text-right">
+                {{ holding.currentPrice | currency:'USD':'symbol':'1.2-2' }}
+              </td>
+              <td class="text-right">
+                {{ holding.value | currency:'USD':'symbol':'1.2-2' }}
+              </td>
+              <td class="text-right"
+                  [class.positive]="holding.dayGainAmount > 0"
+                  [class.negative]="holding.dayGainAmount < 0">
+                {{ holding.dayGainAmount | currency:'USD':'symbol':'1.2-2' }}
+                <br>
+                <small>{{ holding.dayGainPercent | number:'1.2-2' }}%</small>
+              </td>
+              <td class="text-right"
+                  [class.positive]="holding.netPLAmount > 0"
+                  [class.negative]="holding.netPLAmount < 0">
+                {{ holding.netPLAmount | currency:'USD':'symbol':'1.2-2' }}
+                <br>
+                <small>{{ holding.netPLPercent | number:'1.2-2' }}%</small>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="empty-state">
+      <h4>No holdings yet</h4>
+      <p>Start trading to build your portfolio</p>
+    </div>
+  }
+</section>

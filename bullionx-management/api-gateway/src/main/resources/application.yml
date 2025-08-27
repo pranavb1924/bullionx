@@ -1,0 +1,40 @@
+server:
+  port: 4004
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - http://localhost:4200
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            exposedHeaders:
+              - X-User-Id
+              - X-Email
+              - X-First-Name
+              - X-Last-Name
+            allowCredentials: true
+      routes:
+        - id: auth-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=2
+        - id: portfolio-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/portfolio/**,/api/market/**,/api/trades/**
+          filters:
+            - StripPrefix=1

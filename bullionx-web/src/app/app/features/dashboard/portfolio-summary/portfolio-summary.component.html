@@ -1,0 +1,52 @@
+<div class="portfolio-summary-card">
+  <h3>Portfolio Overview</h3>
+  
+  <div class="summary-grid">
+    <div class="summary-stat">
+      <span class="stat-label">Total Account Value</span>
+      <span class="stat-value primary">
+        {{ totalAccountValue | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+    
+    <div class="summary-stat">
+      <span class="stat-label">Cash Balance</span>
+      <span class="stat-value">
+        {{ cashBalance | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+    
+    <div class="summary-stat">
+      <span class="stat-label">Holdings Value</span>
+      <span class="stat-value">
+        {{ (holdings?.totals?.totalValue || 0) | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+    
+    <div class="summary-stat">
+      <span class="stat-label">Total P/L</span>
+      <span class="stat-value" 
+            [class.positive]="totalPL > 0"
+            [class.negative]="totalPL < 0">
+        {{ totalPL | currency:'USD':'symbol':'1.2-2' }}
+        @if (totalPLPercent !== 0) {
+          <span class="stat-percent">
+            ({{ totalPLPercent >= 0 ? '+' : '' }}{{ totalPLPercent | number:'1.2-2' }}%)
+          </span>
+        }
+      </span>
+    </div>
+    
+    <div class="summary-stat">
+      <span class="stat-label">Positions</span>
+      <span class="stat-value">{{ positionsCount }}</span>
+    </div>
+    
+    <div class="summary-stat">
+      <span class="stat-label">Day Change</span>
+      <span class="stat-value" [class.muted]="true">
+        Coming Soon
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,17 @@
 package com.bullionx.portfolioservice.market;
 
-import java.math.BigDecimal;
-
 public interface FinnhubClient {
 
+    record Quote(
+            Double c,
+            Double d,
+            Double dp,
+            Double h,
+            Double l,
+            Double o,
+            Double pc,
+            Long t
+    ) {}
 
-    record Quote(String symbol, String name, BigDecimal price, BigDecimal priorClose, long epochSec) {}
-    Quote getQuote(String symbol);
+    Quote quote(String symbol);
 }

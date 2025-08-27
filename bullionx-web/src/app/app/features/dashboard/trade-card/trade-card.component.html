@@ -1,0 +1,84 @@
+<section class="trade-card">
+  <h3>Trade Stocks</h3>
+  
+  <div class="trade-form">
+    <div class="input-group">
+      <input 
+        type="text" 
+        [(ngModel)]="symbol"
+        (ngModelChange)="symbol.set($event)"
+        placeholder="Enter symbol (e.g., AAPL)"
+        class="form-control">
+      <button 
+        class="btn btn-secondary"
+        (click)="lookup()"
+        [disabled]="loading()">
+        Lookup
+      </button>
+    </div>
+    
+    @if (quote()) {
+      <div class="stock-quote">
+        <div class="quote-header">
+          <span class="quote-symbol">{{ quote()!.symbol }}</span>
+          <span class="quote-price">
+            {{ quote()!.currentPrice | currency:'USD':'symbol':'1.2-2' }}
+          </span>
+        </div>
+        <div class="quote-change"
+             [class.positive]="quote()!.change > 0"
+             [class.negative]="quote()!.change < 0">
+          {{ quote()!.change >= 0 ? '+' : '' }}{{ quote()!.change | number:'1.2-2' }}
+          ({{ quote()!.percentChange >= 0 ? '+' : '' }}{{ quote()!.percentChange | number:'1.2-2' }}%)
+        </div>
+        <div class="quote-details">
+          <span>H: {{ quote()!.high | currency:'USD':'symbol':'1.2-2' }}</span>
+          <span>L: {{ quote()!.low | currency:'USD':'symbol':'1.2-2' }}</span>
+          <span>O: {{ quote()!.open | currency:'USD':'symbol':'1.2-2' }}</span>
+        </div>
+      </div>
+    }
+    
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input 
+        type="number" 
+        id="quantity"
+        [(ngModel)]="quantity"
+        (ngModelChange)="quantity.set($event)"
+        min="1" 
+        step="1"
+        placeholder="0"
+        class="form-control">
+    </div>
+    
+    <div class="trade-buttons">
+      <button 
+        class="btn btn-buy"
+        (click)="buy()"
+        [disabled]="loading() || !symbol() || quantity() <= 0">
+        Buy
+      </button>
+      <button 
+        class="btn btn-sell"
+        (click)="sell()"
+        [disabled]="loading() || !symbol() || quantity() <= 0">
+        Sell
+      </button>
+    </div>
+    
+    @if (loading()) {
+      <div class="alert alert-info">
+        <span class="spinner-small"></span> Processing...
+      </div>
+    }
+    
+    @if (message()) {
+      <div class="alert alert-success">{{ message() }}</div>
+    }
+    
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
+  </div>
+</section>

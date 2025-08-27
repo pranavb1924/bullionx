@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class JwtUtil {
@@ -26,10 +27,11 @@ public class JwtUtil {
         }
     }
 
-    public String generateToken(String email, String firstName, String lastName) {
+    public String generateToken(UUID id, String email, String firstName, String lastName) {
         Instant now = Instant.now();
         return Jwts.builder()
-                .subject(email)
+                .subject(id.toString())
+                .claim("email", email)
                 .claim("firstName", firstName)
                 .claim("lastName", lastName)
                 .issuedAt(Date.from(now))

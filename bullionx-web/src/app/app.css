@@ -1,0 +1,12 @@
+:root { --gap: 12px; --pad: 14px; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; font-family: system-ui, Arial, sans-serif; background:#fafafa; color:#222; }
+
+header { display:flex; align-items:center; justify-content:space-between; padding: var(--pad); background:#fff; border-bottom:1px solid #e6e6e6; }
+header h1 { margin:0; font-size:18px; letter-spacing:1px; }
+nav a { margin-left: var(--gap); text-decoration:none; color:#0366d6; }
+nav a:hover { text-decoration:underline; }
+
+main { max-width: 980px; margin: 20px auto; padding: 0 var(--pad); }
+footer { text-align:center; padding:16px; color:#666; font-size:12px; }

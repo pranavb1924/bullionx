@@ -39,7 +39,7 @@ public class AuthController {
         Optional<User> user = authService.getUser(loginRequestDTO.getEmail());
 
 
-        return ResponseEntity.ok(new LoginResponseDTO(token, user.get().getEmail(), user.get().getFirstName(), user.get().getLastName()));
+        return ResponseEntity.ok(new LoginResponseDTO(user.get().getId().toString(), token, user.get().getEmail(), user.get().getFirstName(), user.get().getLastName()));
 
     }
 

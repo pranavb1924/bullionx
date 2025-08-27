@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -25,7 +26,11 @@ public class Portfolio {
 
     @NotNull
     @Column(name = "name", nullable = false, length = 120)
-    private String name;
+    private String name;  // FIXED: This should be String, not BigDecimal
+
+    @NotNull
+    @Column(name = "balance", nullable = false, precision = 19, scale = 2)
+    private BigDecimal balance = new BigDecimal("10000.00");  // ADD THIS FIELD with default
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)

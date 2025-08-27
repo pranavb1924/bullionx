@@ -17,7 +17,7 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public void createUser(User user) {
-        userRepository.save(user);
+    public User createUser(User user) {
+        return userRepository.save(user);  // Return the saved entity
     }
 }

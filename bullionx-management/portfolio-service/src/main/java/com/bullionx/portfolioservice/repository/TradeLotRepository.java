@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface TradeLotRepository extends JpaRepository<TradeLot, UUID> {
     List<TradeLot> findByPortfolioIdAndSoldAtIsNull(UUID portfolioId);
-    List<TradeLot> findByPortfolioIdOrderByPurchasedAtDesc(UUID portfolioId);
+    List<TradeLot> findByPortfolioIdAndSymbolAndSoldAtIsNullOrderByPurchasedAtAsc(UUID portfolioId, String symbol);
 }

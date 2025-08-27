@@ -1,0 +1,87 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Join BullionX</h1>
+      <p>Create your trading account</p>
+    </div>
+    
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input 
+            type="text" 
+            id="firstName"
+            name="firstName" 
+            [(ngModel)]="registerData.firstName"
+            required
+            placeholder="John"
+            class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input 
+            type="text" 
+            id="lastName"
+            name="lastName" 
+            [(ngModel)]="registerData.lastName"
+            required
+            placeholder="Doe"
+            class="form-control">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email"
+          name="email" 
+          [(ngModel)]="registerData.email"
+          required
+          email
+          placeholder="you@example.com"
+          class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password"
+          name="password" 
+          [(ngModel)]="registerData.password"
+          required
+          minlength="8"
+          placeholder="Minimum 8 characters"
+          class="form-control">
+      </div>
+      
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-block"
+        [disabled]="loading() || !registerForm.valid">
+        @if (loading()) {
+          <span class="spinner-small"></span>
+          Creating account...
+        } @else {
+          Create Account
+        }
+      </button>
+      
+      @if (error()) {
+        <div class="alert alert-error">{{ error() }}</div>
+      }
+      
+      @if (success()) {
+        <div class="alert alert-success">{{ success() }}</div>
+      }
+      
+      <div class="auth-link">
+        Already have an account? 
+        <a routerLink="/login">Sign in</a>
+      </div>
+    </form>
+  </div>
+</div>

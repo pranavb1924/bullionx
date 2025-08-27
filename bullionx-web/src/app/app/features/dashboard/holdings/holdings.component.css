@@ -1,0 +1,83 @@
+.holdings-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.holdings-card h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #f0f0f0;
+}
+
+.portfolio-summary {
+  display: flex;
+  gap: 40px;
+  padding: 16px;
+  background: #0a0a0a;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-label {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.summary-value {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.holdings-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.holdings-table thead {
+  background: #0a0a0a;
+}
+
+.holdings-table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #888;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.holdings-table td {
+  padding: 12px;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.symbol-cell {
+  font-weight: 600;
+  color: #00cc66;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888;
+}
+
+.empty-state h4 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #aaa;
+}

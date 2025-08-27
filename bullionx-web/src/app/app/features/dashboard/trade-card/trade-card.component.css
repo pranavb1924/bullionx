@@ -1,0 +1,70 @@
+.trade-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.trade-card h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #f0f0f0;
+}
+
+.input-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  flex: 1;
+}
+
+.stock-quote {
+  background: #0a0a0a;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #2a2a2a;
+}
+
+.quote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.quote-symbol {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.quote-price {
+  font-size: 28px;
+  font-weight: 300;
+}
+
+.quote-change {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.quote-details {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #888;
+}
+
+.trade-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.trade-form {
+  max-width: 100%;
+}

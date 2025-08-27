@@ -1,0 +1,57 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>BullionX</h1>
+      <p>Stock Trading Platform</p>
+    </div>
+    
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email"
+          [(ngModel)]="loginData.email"
+          required
+          email
+          placeholder="you@example.com"
+          class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password"
+          name="password" 
+          [(ngModel)]="loginData.password"
+          required
+          minlength="8"
+          placeholder="••••••••"
+          class="form-control">
+      </div>
+      
+      <button 
+        type="submit" 
+        class="btn btn-primary btn-block"
+        [disabled]="loading() || !loginForm.valid">
+        @if (loading()) {
+          <span class="spinner-small"></span>
+          Signing in...
+        } @else {
+          Sign In
+        }
+      </button>
+      
+      @if (error()) {
+        <div class="alert alert-error">{{ error() }}</div>
+      }
+      
+      <div class="auth-link">
+        Don't have an account? 
+        <a routerLink="/register">Create one</a>
+      </div>
+    </form>
+  </div>
+</div>
