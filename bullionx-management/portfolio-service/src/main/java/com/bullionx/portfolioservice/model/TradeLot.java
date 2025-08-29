@@ -16,7 +16,11 @@ import java.util.UUID;
         @Index(name = "idx_trades_symbol", columnList = "symbol"),
         @Index(name = "idx_trades_purchased_at", columnList = "purchased_at")
 })
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TradeLot {
 
     @Id @UuidGenerator

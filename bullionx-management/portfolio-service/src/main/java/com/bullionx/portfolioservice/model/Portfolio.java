@@ -13,7 +13,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "portfolios", indexes = @Index(name = "idx_portfolio_user", columnList = "user_id"))
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Portfolio {
 
     @Id @UuidGenerator

@@ -9,12 +9,12 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 @Component
 public class FinnhubClientImpl implements FinnhubClient {
 
-    private final WebClient http;
+    WebClient http;
     private final String apiKey;
 
     public FinnhubClientImpl(
             @Value("${finnhub.base-url:https://finnhub.io/api/v1}") String baseUrl,
-            @Value("${finnhub.api.key}") String apiKey
+            @Value("d1cnshpr01qic6lesaa0d1cnshpr01qic6lesaag") String apiKey
     ) {
         this.http = WebClient.builder().baseUrl(baseUrl).build();
         this.apiKey = apiKey;
